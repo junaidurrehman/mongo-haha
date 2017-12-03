@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var {ObjectId} = require('mongodb');
 
 
 var {mongoose} = require('./db/mongoose');
@@ -30,6 +31,16 @@ app.get('/persons',(req,res)=>{
   },function(e){
     res.status(400).send(e);
   });
+});
+
+app.get('/persons/:id',function(req,res){
+  var id = req.params.id;
+  if(!ObjectId.isValid(id)){
+    return res.status(400).send();
+  }
+  Person.findById(id).then(function(doc){
+    res.send({doc});
+  },function(e){res.status(400).send(e);});
 });
 
 app.listen(3001,() => {
