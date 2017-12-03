@@ -24,6 +24,13 @@ app.post('/persons',(req,res) => {
   });
 
 });
+app.get('/persons',(req,res)=>{
+  Person.find().then(function(persons){
+    res.send({persons});
+  },function(e){
+    res.status(400).send(e);
+  });
+});
 
 app.listen(3001,() => {
   console.log('Server is up and running on port 3001');
