@@ -6,6 +6,8 @@ var {ObjectId} = require('mongodb');
 var {mongoose} = require('./db/mongoose');
 var {Person} = require('./models/Person');
 
+var port = process.env.PORT || 3001;
+
 var app = express();
 
 app.use(bodyParser.json());
@@ -43,6 +45,6 @@ app.get('/persons/:id',function(req,res){
   },function(e){res.status(400).send(e);});
 });
 
-app.listen(3001,() => {
+app.listen(port,() => {
   console.log('Server is up and running on port 3001');
 });
